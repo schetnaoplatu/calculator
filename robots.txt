@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://schetnaoplatu.github.io/calculator/sitemap.xml
