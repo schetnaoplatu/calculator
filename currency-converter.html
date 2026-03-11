@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Конвертер валют онлайн</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<div class="container">
+
+<h1>Конвертер валют</h1>
+
+<input type="number" id="amount" placeholder="Сумма">
+
+<select id="rate">
+<option value="500">USD → KZT</option>
+<option value="550">EUR → KZT</option>
+<option value="5">RUB → KZT</option>
+</select>
+
+<button onclick="convert()">Конвертировать</button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+
+function convert(){
+
+let amount = document.getElementById("amount").value
+let rate = document.getElementById("rate").value
+
+let result = amount * rate
+
+document.getElementById("result").innerHTML =
+"Результат: " + result
+
+}
+
+</script>
+
+</body>
+</html>
