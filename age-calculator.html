@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Калькулятор возраста</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<div class="container">
+
+<h1>Калькулятор возраста</h1>
+
+<input type="date" id="birth">
+
+<button onclick="age()">Рассчитать</button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+
+function age(){
+
+let birth = new Date(document.getElementById("birth").value)
+let today = new Date()
+
+let age = today.getFullYear() - birth.getFullYear()
+
+document.getElementById("result").innerHTML =
+"Ваш возраст: " + age
+
+}
+
+</script>
+
+</body>
+</html>
