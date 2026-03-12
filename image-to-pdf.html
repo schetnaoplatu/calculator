@@ -1,2 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер изображений в PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --primary: #6366f1; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
+        .card { max-width: 600px; width: 100%; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; }
+        
+        .upload-area { 
+            border: 2px dashed #cbd5e1; padding: 40px; border-radius: 15px; 
+            background: #f1f5f9; cursor: pointer; transition: 0.3s; margin-bottom: 20px;
+        }
+        .upload-area:hover { border-color: var(--primary); background: #eef2ff; }
+        
+        .preview-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .preview-img { width: 80px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd; }
+        
+        .btn { 
+            background: var(--primary); color: white; border: none; padding: 15px 30px; 
+            border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px;
+        }
+        .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+        .back-link { display: block; margin-top: 20px; color: #94a3b8; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
 
-<script src="script.js"></script>
+<div class="card">
+    <h2>Картинки в PDF</h2>
+    <p style="color: #64748b;">Выберите одно или несколько изображений (JPG, PNG)</p>
+
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        <span id="statusText">Нажмите для выбора фото</span>
+        <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+    </div>
+
+    <div id="preview" class="preview-container"></div>
+
+    <button id="downloadBtn" class="btn" onclick="generatePDF()" disabled>СКАЧАТЬ PDF</button>
+    
+    <a href="index.html" class="back-link">← На главную</a>
+</div>
+
+<script>
+    let imagesData = [];
+
+    function handleFiles(files) {
+        const preview = document.getElementById('preview');
+        const statusText = document.getElementById('statusText');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        if (files.length > 0) {
+            statusText.innerText = `Выбрано файлов: ${files.length}`;
+            downloadBtn.disabled = false;
+        }
+
+        for (let file of files) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagesData.push(e.target.result);
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'preview-img';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+
+        for (let i = 0; i < imagesData.length; i++) {
+            const img = imagesData[i];
+            
+            // Если это не первая картинка, добавляем новую страницу
+            if (i > 0) pdf.addPage();
+
+            // Растягиваем картинку на весь лист A4 (210x297 мм)
+            pdf.addImage(img, 'JPEG', 10, 10, 190, 277); 
+        }
+
+        pdf.save("images_converted.pdf");
+    }
+</script>
+
+</body>
+</html>
