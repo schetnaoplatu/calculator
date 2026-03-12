@@ -1,2 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образцы и примеры резюме 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --blue: #2563eb; --light-blue: #eff6ff; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; padding: 20px; }
+        .content-max { max-width: 800px; margin: 0 auto; }
+        
+        .prof-nav { display: flex; gap: 10px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 10px; }
+        .prof-btn { 
+            padding: 10px 20px; background: white; border: 1px solid #e2e8f0; 
+            border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s;
+        }
+        .prof-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
 
-<script src="script.js"></script>
+        .example-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .example-header { border-bottom: 2px solid var(--light-blue); padding-bottom: 15px; margin-bottom: 20px; }
+        .job-title { color: var(--blue); font-size: 22px; font-weight: bold; }
+        
+        pre { 
+            background: #f1f5f9; padding: 15px; border-radius: 8px; 
+            white-space: pre-wrap; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6;
+        }
+        .copy-btn { 
+            background: #10b981; color: white; border: none; padding: 10px 20px; 
+            border-radius: 8px; cursor: pointer; margin-top: 15px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content-max">
+    <h1 style="text-align:center">Примеры резюме по профессиям</h1>
+    <p style="text-align:center; color:#64748b; margin-bottom:30px">Выберите профессию, скопируйте текст и используйте его в нашем конструкторе.</p>
+
+    <div class="prof-nav">
+        <button class="prof-btn active" onclick="showEx('it')">IT-специалист</button>
+        <button class="prof-btn" onclick="showEx('sales')">Менеджер по продажам</button>
+        <button class="prof-btn" onclick="showEx('admin')">Администратор</button>
+    </div>
+
+    <div class="example-card">
+        <div id="example-content">
+            </div>
+        <button class="copy-btn" onclick="copyEx()">Скопировать текст</button>
+    </div>
+
+    <div style="text-align:center; margin-top:30px">
+        <a href="resume-templates.html" style="color: var(--blue); font-weight:bold; text-decoration:none">→ Перейти в конструктор резюме</a>
+        <br><br>
+        <a href="index.html" style="color:#94a3b8; text-decoration:none">На главную</a>
+    </div>
+</div>
+
+<script>
+    const data = {
+        it: {
+            title: "Frontend Разработчик",
+            text: "ОПЫТ РАБОТЫ:\n- Разработка интерфейсов на React/Vue (2 года)\n- Верстка адаптивных сайтов\n- Оптимизация скорости загрузки страниц на 40%\n\nНАВЫКИ:\nJavaScript (ES6+), HTML5, CSS3, Git, Webpack.\n\nОБРАЗОВАНИЕ:\nМГТУ им. Баумана, Информационные системы."
+        },
+        sales: {
+            title: "Менеджер по продажам",
+            text: "ОПЫТ РАБОТЫ:\n- Увеличение объема продаж на 25% за год\n- Работа с холодными и теплыми звонками\n- Ведение переговоров с ЛПР (директора компаний)\n\nНАВЫКИ:\nCRM (Amo, Bitrix24), техники отработки возражений, заключение договоров.\n\nОБРАЗОВАНИЕ:\nРЭУ им. Плеханова, Менеджмент."
+        },
+        admin: {
+            title: "Администратор офиса",
+            text: "ОПЫТ РАБОТЫ:\n- Жизнеобеспечение офиса (100+ сотрудников)\n- Прием и распределение звонков и почты\n- Организация деловых поездок и командировок\n\nНАВЫКИ:\nДелопроизводство, MS Office, грамотная речь, многозадачность.\n\nОБРАЗОВАНИЕ:\nКолледж управления, Документационное обеспечение."
+        }
+    };
+
+    function showEx(key) {
+        // Меняем активную кнопку
+        document.querySelectorAll('.prof-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const item = data[key];
+        document.getElementById('example-content').innerHTML = `
+            <div class="example-header">
+                <div class="job-title">${item.title}</div>
+            </div>
+            <pre id="textToCopy">${item.text}</pre>
+        `;
+    }
+
+    function copyEx() {
+        const text = document.getElementById('textToCopy').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Текст скопирован! Теперь вставьте его в конструктор резюме.");
+        });
+    }
+
+    // Показать первый пример при загрузке
+    showEx('it');
+</script>
+
+</body>
+</html>
