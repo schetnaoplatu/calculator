@@ -1,5 +1,52 @@
-function count() {
-    let text = document.getElementById('text-area').value;
-    document.getElementById('sym-count').innerText = text.length;
-    document.getElementById('word-count').innerText = text.trim().split(/\s+/).filter(x => x.length > 0).length;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Счетчик слов и знаков онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .counter-container { max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 250px; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
+        textarea:focus { border-color: #2563eb; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .stat-item { background: #f8fafc; padding: 15px; border-radius: 10px; text-align: center; }
+        .stat-val { display: block; font-size: 24px; font-weight: bold; color: #2563eb; }
+        .stat-label { font-size: 13px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <h2>Анализ текста</h2>
+        <textarea id="text-input" placeholder="Вставьте ваш текст сюда..." oninput="analyzeText()"></textarea>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Символов (с пробелами)</span>
+                <span id="char-all" class="stat-val">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Символов (без пробелов)</span>
+                <span id="char-no-space" class="stat-val">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Количество слов</span>
+                <span id="word-count" class="stat-val">0</span>
+            </div>
+        </div>
+        <br>
+        <a href="index.html" style="color: #94a3b8; text-decoration: none;">← На главную</a>
+    </div>
+
+    <script>
+        function analyzeText() {
+            const text = document.getElementById('text-input').value;
+            
+            document.getElementById('char-all').innerText = text.length;
+            document.getElementById('char-no-space').innerText = text.replace(/\s/g, '').length;
+            
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            document.getElementById('word-count').innerText = words.length;
+        }
+    </script>
+</body>
+</html>
