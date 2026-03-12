@@ -1,15 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"><title>Калькулятор ИМТ</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f9fafb; }
+        .box { background: white; padding: 30px; display: inline-block; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input { padding: 10px; margin: 10px; border-radius: 5px; border: 1px solid #ddd; width: 80%; }
+        #bmi-res { font-size: 40px; color: #3b82f6; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Ваш ИМТ</h2>
+        <input type="number" id="weight" placeholder="Вес (кг)">
+        <input type="number" id="height" placeholder="Рост (см)">
+        <button onclick="calc()" style="width: 85%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer;">Рассчитать</button>
+        <div id="bmi-res">0</div>
+        <p id="label"></p>
+        <a href="index.html" style="color:#ccc; text-decoration:none;">← Назад</a>
+    </div>
 <script>
-    function calcBMI() {
-        let h = parseFloat(document.getElementById('height').value) / 100;
-        let w = parseFloat(document.getElementById('weight').value);
-        if (h > 0 && w > 0) {
-            let bmi = (w / (h * h)).toFixed(1);
-            let status = "";
-            if (bmi < 18.5) status = "Ниже нормы";
-            else if (bmi < 25) status = "Норма";
-            else if (bmi < 30) status = "Избыточный вес";
-            else status = "Ожирение";
-            document.getElementById('bmi-res').innerText = bmi + " (" + status + ")";
-        }
+    function calc() {
+        let w = document.getElementById('weight').value;
+        let h = document.getElementById('height').value / 100;
+        let bmi = (w / (h * h)).toFixed(1);
+        document.getElementById('bmi-res').innerText = bmi;
+        let msg = "";
+        if(bmi < 18.5) msg = "Недостаточный вес";
+        else if(bmi < 25) msg = "Норма";
+        else if(bmi < 30) msg = "Избыточный вес";
+        else msg = "Ожирение";
+        document.getElementById('label').innerText = msg;
     }
 </script>
+</body>
+</html>
