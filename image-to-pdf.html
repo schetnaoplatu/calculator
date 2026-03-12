@@ -5,27 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Конвертер изображений в PDF</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        :root { --primary: #6366f1; --bg: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
-        .card { max-width: 600px; width: 100%; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; }
-        
-        .upload-area { 
-            border: 2px dashed #cbd5e1; padding: 40px; border-radius: 15px; 
-            background: #f1f5f9; cursor: pointer; transition: 0.3s; margin-bottom: 20px;
-        }
-        .upload-area:hover { border-color: var(--primary); background: #eef2ff; }
-        
-        .preview-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .preview-img { width: 80px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd; }
-        
-        .btn { 
-            background: var(--primary); color: white; border: none; padding: 15px 30px; 
-            border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px;
-        }
-        .btn:disabled { background: #94a3b8; cursor: not-allowed; }
-        .back-link { display: block; margin-top: 20px; color: #94a3b8; text-decoration: none; font-size: 14px; }
-    </style>
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
