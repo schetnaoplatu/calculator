@@ -1,2 +1,32 @@
-
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор SHA-256 хеша онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hash-card { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 100px; padding: 15px; border-radius: 10px; border: 2px solid #e2e8f0; box-sizing: border-box; }
+        .hash-out { background: #f8fafc; padding: 15px; border-radius: 10px; word-break: break-all; font-family: monospace; margin-top: 20px; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="hash-card">
+        <h3>Генератор SHA-256</h3>
+        <textarea id="inputText" placeholder="Введите текст для хеширования..." oninput="generateHash()"></textarea>
+        <div class="hash-out" id="hashResult">Хеш появится здесь...</div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#cbd5e1; text-decoration:none">← На главную</a>
+    </div>
+    <script>
+        async function generateHash() {
+            const msg = document.getElementById('inputText').value;
+            if(!msg) { document.getElementById('hashResult').innerText = "..."; return; }
+            const msgBuffer = new TextEncoder().encode(msg);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            document.getElementById('hashResult').innerText = hashHex;
+        }
+    </script>
+</body>
+</html>
