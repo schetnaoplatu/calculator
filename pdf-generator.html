@@ -1,2 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер текста в PDF — Создать документ онлайн</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root { --primary: #ef4444; --bg: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 20px; color: #1e293b; }
+        .container { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
 
-<script src="script.js"></script>
+        .editor-panel { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .preview-panel { background: white; padding: 40px; border-radius: 5px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-height: 500px; }
+        
+        textarea { width: 100%; height: 300px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 16px; resize: none; box-sizing: border-box; }
+        input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 18px; font-weight: bold; }
+
+        .btn-pdf { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .btn-pdf:hover { background: #dc2626; transform: translateY(-2px); }
+
+        /* Стили внутри PDF */
+        #pdf-content h1 { margin-top: 0; color: #1e293b; border-bottom: 2px solid #ef4444; padding-bottom: 10px; }
+        #pdf-content p { line-height: 1.6; white-space: pre-wrap; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="editor-panel">
+        <h2 style="margin-top:0">Создать PDF</h2>
+        <p style="font-size:14px; color:#64748b">Введите заголовок и текст документа:</p>
+        
+        <input type="text" id="docTitle" placeholder="Заголовок документа" oninput="updatePreview()" value="Мой отчет">
+        <textarea id="docText" placeholder="Начните печатать ваш текст здесь..." oninput="updatePreview()">Здравствуйте! 
+Это пример вашего будущего PDF документа. 
+
+Вы можете стереть этот текст и написать свой. 
+Библиотека сохранит форматирование и абзацы.</textarea>
+        
+        <button class="btn-pdf" onclick="downloadPDF()">СКАЧАТЬ В PDF</button>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#94a3b8; text-decoration:none">← На главную</a>
+    </div>
+
+    <div class="preview-panel" id="pdf-content">
+        <h1 id="viewTitle">Мой отчет</h1>
+        <p id="viewText">Здравствуйте! 
+Это пример вашего будущего PDF документа. 
+
+Вы можете стереть этот текст и написать свой. 
+Библиотека сохранит форматирование и абзацы.</p>
+    </div>
+</div>
+
+<script>
+    function updatePreview() {
+        document.getElementById('viewTitle').innerText = document.getElementById('docTitle').value;
+        document.getElementById('viewText').innerText = document.getElementById('docText').value;
+    }
+
+    function downloadPDF() {
+        const element = document.getElementById('pdf-content');
+        const fileName = document.getElementById('docTitle').value || 'document';
+        
+        const opt = {
+            margin:       10,
+            filename:     `${fileName}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Запуск генерации
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
+
+</body>
+</html>
