@@ -1,39 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Счетчик слов</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Счетчик слов</h1>
-
-<textarea id="text" rows="10"></textarea>
-
-<button onclick="count()">Посчитать</button>
-
-<h2 id="result"></h2>
-
-</div>
-
-<script>
-
-function count(){
-
-let text = document.getElementById("text").value
-
-let words = text.trim().split(/\s+/).length
-
-document.getElementById("result").innerHTML =
-"Количество слов: " + words
-
+function count() {
+    let text = document.getElementById('text-area').value;
+    document.getElementById('sym-count').innerText = text.length;
+    document.getElementById('word-count').innerText = text.trim().split(/\s+/).filter(x => x.length > 0).length;
 }
-
-</script>
-<script src="script.js"></script>
-</body>
-</html>
