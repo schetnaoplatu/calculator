@@ -1,2 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор случайных чисел — Онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .rnd-card { max-width: 400px; margin: 50px auto; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .inputs { display: flex; justify-content: space-around; margin: 20px 0; }
+        input { width: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 18px; }
+        #result { font-size: 64px; font-weight: bold; color: #2563eb; margin: 20px 0; min-height: 80px; }
+        .btn-gen { background: #2563eb; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 18px; width: 100%; }
+        .btn-gen:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+    <div class="rnd-card">
+        <h2>Генератор чисел</h2>
+        <div class="inputs">
+            <div><label>От</label><br><input type="number" id="min" value="1"></div>
+            <div><label>До</label><br><input type="number" id="max" value="100"></div>
+        </div>
+        <div id="result">?</div>
+        <button class="btn-gen" onclick="generate()">Сгенерировать</button>
+        <br><br>
+        <a href="index.html" style="color: #94a3b8; text-decoration: none;">← На главную</a>
+    </div>
 
-<script src="script.js"></script>
+    <script>
+        function generate() {
+            const min = Math.ceil(document.getElementById('min').value);
+            const max = Math.floor(document.getElementById('max').value);
+            const res = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            const display = document.getElementById('result');
+            // Эффект "барабана"
+            let count = 0;
+            const interval = setInterval(() => {
+                display.innerText = Math.floor(Math.random() * (max - min + 1)) + min;
+                count++;
+                if (count > 10) {
+                    clearInterval(interval);
+                    display.innerText = res;
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
