@@ -1,2 +1,15 @@
-
-<script src="script.js"></script>
+<script>
+    function calcBMI() {
+        let h = parseFloat(document.getElementById('height').value) / 100;
+        let w = parseFloat(document.getElementById('weight').value);
+        if (h > 0 && w > 0) {
+            let bmi = (w / (h * h)).toFixed(1);
+            let status = "";
+            if (bmi < 18.5) status = "Ниже нормы";
+            else if (bmi < 25) status = "Норма";
+            else if (bmi < 30) status = "Избыточный вес";
+            else status = "Ожирение";
+            document.getElementById('bmi-res').innerText = bmi + " (" + status + ")";
+        }
+    }
+</script>
