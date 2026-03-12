@@ -1,2 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор процентов онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calc-card { max-width: 600px; margin: 30px auto; padding: 25px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 5px; width: 80px; }
+        .res { font-weight: bold; color: #2563eb; min-width: 50px; }
+    </style>
+</head>
+<body>
+    <div class="calc-card">
+        <h2>Процентный калькулятор</h2>
+        <hr><br>
+        
+        <div class="row">
+            <span>Сколько будет</span>
+            <input type="number" id="p1" oninput="c1()">
+            <span>% от числа</span>
+            <input type="number" id="v1" oninput="c1()">
+            <span>=</span>
+            <span id="r1" class="res">0</span>
+        </div>
 
-<script src="script.js"></script>
+        <div class="row">
+            <span>Сколько % составляет число</span>
+            <input type="number" id="v2" oninput="c2()">
+            <span>от числа</span>
+            <input type="number" id="total2" oninput="c2()">
+            <span>=</span>
+            <span id="r2" class="res">0</span> %
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="text-decoration: none; color: #999;">← На главную</a>
+        </div>
+    </div>
+
+    <script>
+        function c1() {
+            let p = document.getElementById('p1').value;
+            let v = document.getElementById('v1').value;
+            document.getElementById('r1').innerText = ((v * p) / 100).toLocaleString();
+        }
+        function c2() {
+            let v = document.getElementById('v2').value;
+            let t = document.getElementById('total2').value;
+            document.getElementById('r2').innerText = ((v / t) * 100).toFixed(2);
+        }
+    </script>
+</body>
+</html>
