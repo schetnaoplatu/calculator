@@ -1,2 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор QR-кодов онлайн — Бесплатно</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        .qr-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .input-group { margin-bottom: 20px; }
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus { border-color: #2563eb; }
+        
+        #qrcode {
+            margin: 20px auto;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .btn-download {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none; /* Появится после генерации */
+        }
+        .btn-download:hover { background: #1d4ed8; }
+        
+        .back-link { display: block; margin-top: 20px; color: #64748b; text-decoration: none; }
+    </style>
+</head>
+<body>
 
-<script src="script.js"></script>
+<div class="qr-container">
+    <h1 style="margin-bottom: 10px;">Генератор QR-кода</h1>
+    <p style="color: #64748b; margin-bottom: 20px;">Введите ссылку или текст, чтобы мгновенно создать QR-код</p>
+
+    <div class="input-group">
+        <input type="text" id="qr-text" placeholder="https://example.com" oninput="generateQR()">
+    </div>
+
+    <div id="qrcode"></div>
+    
+    <br>
+    <button id="download-btn" class="btn-download" onclick="downloadQR()">Скачать QR-код (PNG)</button>
+
+    <a href="index.html" class="back-link">← Вернуться на главную</a>
+</div>
+
+<script>
+    let qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    function generateQR() {
+        let text = document.getElementById("qr-text").value;
+        let downloadBtn = document.getElementById("download-btn");
+        
+        if (text.trim() !== "") {
+            qrcode.clear();
+            qrcode.makeCode(text);
+            downloadBtn.style.display = "inline-block";
+        } else {
+            downloadBtn.style.display = "none";
+        }
+    }
+
+    function downloadQR() {
+        // Находим изображение внутри контейнера qrcode
+        let img = document.querySelector("#qrcode img");
+        if (img) {
+            let link = document.createElement("a");
+            link.href = img.src;
+            link.download = "qr-code-schetnaoplatu.png";
+            link.click();
+        }
+    }
+</script>
+
+</body>
+</html>
