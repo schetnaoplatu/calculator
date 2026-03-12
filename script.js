@@ -244,3 +244,19 @@ document.getElementById("result").innerHTML =
 total + " minutes"
 
 }
+// Функция для сохранения данных
+function saveUserData() {
+    const sellerInfo = document.getElementById('seller-info').value; 
+    localStorage.setItem('my_calculator_seller', sellerInfo);
+}
+
+// Функция для загрузки данных при открытии страницы
+window.onload = function() {
+    const savedInfo = localStorage.getItem('my_calculator_seller');
+    if (savedInfo) {
+        document.getElementById('seller-info').value = savedInfo;
+    }
+};
+
+// Привязываем сохранение к изменению поля
+document.getElementById('seller-info').addEventListener('input', saveUserData);
