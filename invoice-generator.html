@@ -1,2 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профессиональный Генератор Счетов</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили специально для этого калькулятора */
+        :root { --primary: #2563eb; --bg: #f8fafc; }
+        body { font-family: sans-serif; background: var(--bg); padding: 20px; }
+        .invoice-card { 
+            max-width: 900px; margin: 0 auto; background: #fff; 
+            padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+        }
+        .header-flex { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 12px; color: #64748b; margin-bottom: 5px; text-transform: uppercase; }
+        textarea, input { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 14px; }
+        td { padding: 10px; border-bottom: 1px solid #f1f5f9; }
+        
+        .total-box { text-align: right; background: #f8fafc; padding: 20px; border-radius: 8px; }
+        .total-amount { font-size: 24px; font-weight: bold; color: var(--primary); }
+        
+        .btn-add { background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        .btn-print { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+        .btn-delete { color: #ef4444; background: none; border: none; cursor: pointer; font-size: 18px; }
 
-<script src="script.js"></script>
+        @media print {
+            .btn-add, .btn-print, .btn-delete, label { display: none !important; }
+            body { background: white; padding: 0; }
+            .invoice-card { box-shadow: none; max-width: 100%; }
+            input, textarea { border: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-card">
+    <div class="header-flex">
+        <div style="width: 45%;">
+            <label>Продавец (ваши реквизиты)</label>
+            <textarea id="seller-info" rows="4" placeholder="ООО 'Ромашка', ИНН 123456..."></textarea>
+        </div>
+        <div style="width: 45%;">
+            <label>Покупатель</label>
+            <textarea id="buyer-info" rows="4" placeholder="ИП Иванов, адрес..."></textarea>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Описание товара или услуги</th>
+                <th width="80">Кол-во</th>
+                <th width="120">Цена</th>
+                <th width="120">Сумма</th>
+                <th width="40"></th>
+            </tr>
+        </thead>
+        <tbody id="items-tbody">
+            </tbody>
+    </table>
+
+    <button class="btn-add" onclick="addRow()">+ Добавить строку</button>
+
+    <div class="total-box">
+        <span>ИТОГО К ОПЛАТЕ:</span>
+        <div class="total-amount" id="grand-total">0.00 ₽</div>
+    </div>
+
+    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; display: flex; justify-content: space-between;">
+        <button class="btn-print" onclick="window.print()">Печать или сохранить в PDF</button>
+        <p style="font-size: 12px; color: #94a3b8;">Данные сохраняются автоматически</p>
+    </div>
+</div>
+
+<script>
+    // 1. Автосохранение реквизитов
+    const sellerField = document.getElementById('seller-info');
+    sellerField.value = localStorage.getItem('invoice_seller') || '';
+    sellerField.oninput = () => localStorage.setItem('invoice_seller', sellerField.value);
+
+    // 2. Логика таблицы
+    function addRow() {
+        const tbody = document.getElementById('items-tbody');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="text" placeholder="Услуга..." class="name"></td>
+            <td><input type="number" value="1" class="qty" oninput="calc()"></td>
+            <td><input type="number" value="0" class="price" oninput="calc()"></td>
+            <td class="row-total">0.00 ₽</td>
+            <td><button class="btn-delete" onclick="this.parentElement.parentElement.remove(); calc()">×</button></td>
+        `;
+        tbody.appendChild(tr);
+        calc();
+    }
+
+    // 3. Расчет
+    function calc() {
+        let grandTotal = 0;
+        const rows = document.querySelectorAll('#items-tbody tr');
+        rows.forEach(row => {
+            const qty = parseFloat(row.querySelector('.qty').value) || 0;
+            const price = parseFloat(row.querySelector('.price').value) || 0;
+            const total = qty * price;
+            row.querySelector('.row-total').innerText = total.toLocaleString() + ' ₽';
+            grandTotal += total;
+        });
+        document.getElementById('grand-total').innerText = grandTotal.toLocaleString() + ' ₽';
+    }
+
+    // Добавим первую строку сразу
+    addRow();
+</script>
+
+</body>
+</html>
