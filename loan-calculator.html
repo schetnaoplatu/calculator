@@ -4,29 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кредитный калькулятор с графиком платежей</title>
-    <style>
-        :root { --primary: #2563eb; --text: #1e293b; --bg: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
-        .calc-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        @media (max-width: 800px) { .calc-container { grid-template-columns: 1fr; } }
-        
-        .panel { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h2 { margin-top: 0; color: var(--primary); }
-        
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 14px; margin-bottom: 5px; font-weight: 500; }
-        input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        
-        .summary { background: #eff6ff; padding: 20px; border-radius: 12px; margin-top: 20px; }
-        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; }
-        
-        /* Стили таблицы графика */
-        .schedule-container { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { text-align: left; padding: 10px; border-bottom: 2px solid #f1f5f9; color: #64748b; }
-        td { padding: 10px; border-bottom: 1px solid #f1f5f9; }
-        .back-link { display: block; text-align: center; margin-top: 20px; color: #94a3b8; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
