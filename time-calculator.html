@@ -1,2 +1,32 @@
-
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"><title>Калькулятор времени</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
+        .card { background: white; padding: 30px; border-radius: 15px; shadow: 0 10px 20px rgba(0,0,0,0.1); width: 350px; }
+        input { width: 60px; padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #ddd; }
+        button { width: 100%; padding: 12px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        #res { font-size: 24px; font-weight: bold; text-align: center; margin-top: 20px; color: #27ae60; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Сложить время</h2>
+    <div>Тайм 1: <input type="number" id="h1" placeholder="ч"> : <input type="number" id="m1" placeholder="м"></div>
+    <div>Тайм 2: <input type="number" id="h2" placeholder="ч"> : <input type="number" id="m2" placeholder="м"></div>
+    <button onclick="calc()">РАССЧИТАТЬ СУММУ</button>
+    <div id="res">00:00</div>
+    <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#aaa; text-decoration:none;">← Назад</a>
+</div>
+<script>
+    function calc() {
+        let totalMin = (parseInt(document.getElementById('h1').value)||0)*60 + (parseInt(document.getElementById('m1').value)||0) +
+                       (parseInt(document.getElementById('h2').value)||0)*60 + (parseInt(document.getElementById('m2').value)||0);
+        let h = Math.floor(totalMin / 60);
+        let m = totalMin % 60;
+        document.getElementById('res').innerText = `${h}ч. ${m}мин.`;
+    }
+</script>
+</body>
+</html>
