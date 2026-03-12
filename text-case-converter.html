@@ -1,2 +1,37 @@
-
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение регистра текста онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .text-card { max-width: 700px; margin: 30px auto; padding: 25px; background: #fff; border-radius: 15px; }
+        textarea { width: 100%; height: 200px; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; margin-bottom: 15px; }
+        .btn-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-flex button { flex: 1; padding: 10px; cursor: pointer; border: none; border-radius: 8px; background: #2563eb; color: #fff; font-size: 14px; }
+        .btn-flex button:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="text-card">
+        <h2>Редактор регистра</h2>
+        <textarea id="txt"></textarea>
+        <div class="btn-flex">
+            <button onclick="change('up')">ВЕРХНИЙ РЕГИСТР</button>
+            <button onclick="change('down')">нижний регистр</button>
+            <button onclick="change('cap')">Как В Предложениях</button>
+        </div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#cbd5e1; text-decoration:none">← На главную</a>
+    </div>
+    <script>
+        function change(type) {
+            let area = document.getElementById('txt');
+            if (type === 'up') area.value = area.value.toUpperCase();
+            if (type === 'down') area.value = area.value.toLowerCase();
+            if (type === 'cap') {
+                area.value = area.value.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+            }
+        }
+    </script>
+</body>
+</html>
