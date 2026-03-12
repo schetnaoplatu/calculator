@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Калькулятор скидки</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Калькулятор скидок онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .discount-card { max-width: 450px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 18px; box-sizing: border-box; }
+        .res-container { background: #fff7ed; padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px dashed #fb923c; }
+        .final-price { font-size: 32px; font-weight: bold; color: #ea580c; }
+    </style>
 </head>
-
 <body>
-
-<div class="container">
-
-<h1>Калькулятор скидки</h1>
-
-<input type="number" id="price" placeholder="Цена">
-
-<input type="number" id="discount" placeholder="Скидка %">
-
-<button onclick="calc()">Рассчитать</button>
-
-<h2 id="result"></h2>
-
-</div>
-
-<script>
-
-function calc(){
-
-let price = document.getElementById("price").value
-let discount = document.getElementById("discount").value
-
-let result = price - (price * discount / 100)
-
-document.getElementById("result").innerHTML =
-"Цена со скидкой: " + result
-
-}
-
-</script>
-<script src="script.js"></script>
+    <div class="discount-card">
+        <h2>Калькулятор скидок</h2>
+        <input type="number" id="price" placeholder="Исходная цена (₽)" oninput="calcDisc()">
+        <input type="number" id="percent" placeholder="Скидка (%)" oninput="calcDisc()">
+        
+        <div class="res-container">
+            <span style="color: #9a3412; font-size: 14px;">Цена со скидкой:</span>
+            <div id="res-price" class="final-price">0 ₽</div>
+            <p style="margin-top: 10px; color: #c2410c;">Ваша экономия: <span id="save-price">0</span> ₽</p>
+        </div>
+        <a href="index.html" style="display:block; margin-top:20px; color:#cbd5e1; text-decoration:none">← Назад</a>
+    </div>
+    <script>
+        function calcDisc() {
+            let p = parseFloat(document.getElementById('price').value) || 0;
+            let d = parseFloat(document.getElementById('percent').value) || 0;
+            let save = (p * d) / 100;
+            let final = p - save;
+            document.getElementById('res-price').innerText = final.toLocaleString() + ' ₽';
+            document.getElementById('save-price').innerText = save.toLocaleString();
+        }
+    </script>
 </body>
 </html>
