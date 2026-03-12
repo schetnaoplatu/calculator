@@ -1,2 +1,49 @@
-
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Конвертер величин онлайн</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .unit-card { max-width: 500px; margin: 40px auto; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .row { display: flex; gap: 10px; margin-bottom: 15px; }
+        select, input { flex: 1; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="unit-card">
+        <h2 style="text-align:center">Конвертер длины</h2>
+        <div class="row">
+            <input type="number" id="inputVal" value="1" oninput="convert()">
+            <select id="fromUnit" onchange="convert()">
+                <option value="1">Метры (м)</option>
+                <option value="0.01">Сантиметры (см)</option>
+                <option value="0.0254">Дюймы (in)</option>
+                <option value="0.3048">Футы (ft)</option>
+            </select>
+        </div>
+        <div style="text-align:center; margin:10px">равно</div>
+        <div class="row">
+            <input type="number" id="outputVal" readonly>
+            <select id="toUnit" onchange="convert()">
+                <option value="1">Метры (м)</option>
+                <option value="0.01" selected>Сантиметры (см)</option>
+                <option value="0.0254">Дюймы (in)</option>
+                <option value="0.3048">Футы (ft)</option>
+            </select>
+        </div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#cbd5e1; text-decoration:none">← На главную</a>
+    </div>
+    <script>
+        function convert() {
+            let val = parseFloat(document.getElementById('inputVal').value) || 0;
+            let from = parseFloat(document.getElementById('fromUnit').value);
+            let to = parseFloat(document.getElementById('toUnit').value);
+            // Сначала в метры, потом в нужную единицу
+            let result = (val * from) / to;
+            document.getElementById('outputVal').value = result.toFixed(4);
+        }
+        convert();
+    </script>
+</body>
+</html>
