@@ -1,2 +1,28 @@
-
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"><title>Base64 Конвертер</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; background: #f0f2f5; }
+        textarea { width: 100%; height: 150px; margin-bottom: 20px; padding: 10px; border-radius: 10px; border: 1px solid #ccc; }
+        .btns { display: flex; gap: 10px; }
+        button { flex: 1; padding: 15px; cursor: pointer; border-radius: 8px; border: none; color: white; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px;">
+        <h2>Base64 Encode/Decode</h2>
+        <textarea id="input" placeholder="Введите текст сюда..."></textarea>
+        <div class="btns">
+            <button onclick="encode()" style="background: #4f46e5;">Кодировать</button>
+            <button onclick="decode()" style="background: #10b981;">Декодировать</button>
+        </div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#999; text-decoration:none;">← На главную</a>
+    </div>
+<script>
+    const input = document.getElementById('input');
+    function encode() { input.value = btoa(unescape(encodeURIComponent(input.value))); }
+    function decode() { try { input.value = decodeURIComponent(escape(atob(input.value))); } catch(e) { alert("Ошибка: Неверный формат Base64"); } }
+</script>
+</body>
+</html>
