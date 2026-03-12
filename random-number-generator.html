@@ -2,48 +2,111 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Генератор случайных чисел — Онлайн</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор случайных чисел — Для розыгрышей и конкурсов</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .rnd-card { max-width: 400px; margin: 50px auto; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
-        .inputs { display: flex; justify-content: space-around; margin: 20px 0; }
-        input { width: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 18px; }
-        #result { font-size: 64px; font-weight: bold; color: #2563eb; margin: 20px 0; min-height: 80px; }
-        .btn-gen { background: #2563eb; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 18px; width: 100%; }
-        .btn-gen:active { transform: scale(0.98); }
+        :root { --primary: #6366f1; --bg: #f5f7ff; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .rnd-card { 
+            max-width: 450px; width: 90%; background: white; padding: 30px; 
+            border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; 
+        }
+        .result-display { 
+            font-size: 72px; font-weight: 800; color: var(--primary); 
+            margin: 20px 0; min-height: 90px; line-height: 1; 
+        }
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        label { display: block; font-size: 12px; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+        input { 
+            width: 100%; padding: 12px; border: 2px solid #f1f5f9; 
+            border-radius: 12px; font-size: 18px; text-align: center; box-sizing: border-box;
+        }
+        input:focus { border-color: var(--primary); outline: none; }
+        .btn-main { 
+            background: var(--primary); color: white; border: none; padding: 16px; 
+            width: 100%; border-radius: 14px; font-size: 18px; font-weight: bold; 
+            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+        }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 20px rgba(99, 102, 241, 0.4); }
+        .list-results { 
+            margin-top: 20px; padding: 15px; background: #f8fafc; 
+            border-radius: 12px; font-size: 14px; color: #64748b; 
+            max-height: 100px; overflow-y: auto; 
+        }
     </style>
 </head>
 <body>
-    <div class="rnd-card">
-        <h2>Генератор чисел</h2>
-        <div class="inputs">
-            <div><label>От</label><br><input type="number" id="min" value="1"></div>
-            <div><label>До</label><br><input type="number" id="max" value="100"></div>
+
+<div class="rnd-card">
+    <h2 style="margin-top:0">Рандомайзер</h2>
+    
+    <div class="result-display" id="mainRes">?</div>
+
+    <div class="settings-grid">
+        <div>
+            <label>От</label>
+            <input type="number" id="min" value="1">
         </div>
-        <div id="result">?</div>
-        <button class="btn-gen" onclick="generate()">Сгенерировать</button>
-        <br><br>
-        <a href="index.html" style="color: #94a3b8; text-decoration: none;">← На главную</a>
+        <div>
+            <label>До</label>
+            <input type="number" id="max" value="100">
+        </div>
+        <div style="grid-column: span 2;">
+            <label>Сколько чисел выдать?</label>
+            <input type="number" id="count" value="1">
+        </div>
     </div>
 
-    <script>
-        function generate() {
-            const min = Math.ceil(document.getElementById('min').value);
-            const max = Math.floor(document.getElementById('max').value);
-            const res = Math.floor(Math.random() * (max - min + 1)) + min;
-            
-            const display = document.getElementById('result');
-            // Эффект "барабана"
-            let count = 0;
+    <button class="btn-main" onclick="roll()">СГЕНЕРИРОВАТЬ</button>
+
+    <div id="historyBlock" class="list-results" style="display:none">
+        <b>Результаты:</b> <span id="historyText"></span>
+    </div>
+
+    <a href="index.html" style="display:block; margin-top:25px; color:#cbd5e1; text-decoration:none; font-size:14px">← На главную</a>
+</div>
+
+<script>
+    function roll() {
+        const min = parseInt(document.getElementById('min').value);
+        const max = parseInt(document.getElementById('max').value);
+        const count = parseInt(document.getElementById('count').value);
+        const display = document.getElementById('mainRes');
+        const historyBlock = document.getElementById('historyBlock');
+        const historyText = document.getElementById('historyText');
+
+        if (isNaN(min) || isNaN(max) || min >= max) {
+            alert("Проверьте диапазон!");
+            return;
+        }
+
+        let results = [];
+        
+        // Если нужно одно число — делаем анимацию
+        if (count === 1) {
+            let iterations = 0;
             const interval = setInterval(() => {
                 display.innerText = Math.floor(Math.random() * (max - min + 1)) + min;
-                count++;
-                if (count > 10) {
+                iterations++;
+                if (iterations > 12) {
                     clearInterval(interval);
-                    display.innerText = res;
+                    const final = Math.floor(Math.random() * (max - min + 1)) + min;
+                    display.innerText = final;
                 }
             }, 50);
+            historyBlock.style.display = 'none';
+        } else {
+            // Если нужно много чисел
+            for (let i = 0; i < count; i++) {
+                results.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            display.innerText = results[0]; // Показываем первое
+            historyText.innerText = results.join(', ');
+            historyBlock.style.display = 'block';
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
