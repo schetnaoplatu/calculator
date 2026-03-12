@@ -34,11 +34,11 @@
         </div>
         <div class="res-item">
             <span class="res-label">Общая выплата</span>
-            <span id="total-repayment" class="res-val">0 ₽₸</span>
+            <span id="total-repayment" class="res-val">0 ₽ ₸</span>
         </div>
         <div class="res-item">
             <span class="res-label">Переплата по процентам</span>
-            <span id="total-interest" class="res-val highlight">0 ₽₸</span>
+            <span id="total-interest" class="res-val highlight">0 ₽ ₸</span>
         </div>
     </div>
 
@@ -61,13 +61,13 @@ function calculateLoan() {
         const total = monthly * months;
         const interest = total - amount;
 
-        document.getElementById('monthly-payment').innerText = monthly.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸;
-        document.getElementById('total-repayment').innerText = total.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸;
-        document.getElementById('total-interest').innerText = interest.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸;
+        document.getElementById('monthly-payment').innerText = monthly.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸';
+        document.getElementById('total-repayment').innerText = total.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸';
+        document.getElementById('total-interest').innerText = interest.toLocaleString(undefined, {maximumFractionDigits: 0}) + ' ₽'₸';
     } else {
-        document.getElementById('monthly-payment').innerText = '0 ₽'₸;
-        document.getElementById('total-repayment').innerText = '0 ₽'₸;
-        document.getElementById('total-interest').innerText = '0 ₽'₸;
+        document.getElementById('monthly-payment').innerText = '0 ₽'₸';
+        document.getElementById('total-repayment').innerText = '0 ₽'₸';
+        document.getElementById('total-interest').innerText = '0 ₽'₸';
     }
 }
 
