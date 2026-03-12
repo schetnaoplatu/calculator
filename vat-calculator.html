@@ -2,46 +2,56 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Калькулятор НДС онлайн</title>
+    <title>Расчет НДС 20% онлайн</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .calc-card { max-width: 500px; margin: 50px auto; padding: 30px; background: white; border-radius: 15px; shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 18px; }
-        .result-box { background: #f0f7ff; padding: 15px; border-radius: 10px; margin-top: 20px; }
-        .res-val { font-size: 24px; font-weight: bold; color: #2563eb; }
+        .vat-card { max-width: 500px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; border: 1px solid #eef; }
+        .btn-group { display: flex; gap: 10px; margin: 20px 0; }
+        button { flex: 1; padding: 12px; cursor: pointer; border-radius: 8px; border: 1px solid #2563eb; background: #fff; color: #2563eb; font-weight: bold; }
+        button.active { background: #2563eb; color: #fff; }
+        .result-area { background: #f8fafc; padding: 20px; border-radius: 12px; margin-top: 20px; }
+        .big-sum { font-size: 24px; font-weight: bold; color: #1e293b; }
     </style>
 </head>
 <body>
-    <div class="calc-card">
-        <h2>Калькулятор НДС</h2>
-        <input type="number" id="amount" placeholder="Введите сумму" oninput="calcVat()">
-        <select id="type" onchange="calcVat()" style="width: 100%; padding: 10px; border-radius: 8px;">
-            <option value="plus">Начислить НДС (20%)</option>
-            <option value="minus">Выделить НДС (20%)</option>
-        </select>
-        <div class="result-box">
-            <p>Сумма НДС: <span id="vat-price" class="res-val">0</span> ₽</p>
-            <p>Итого: <span id="total-price" class="res-val">0</span> ₽</p>
+    <div class="vat-card">
+        <h3>Расчет НДС</h3>
+        <input type="number" id="amount" placeholder="Введите сумму" style="width:100%; font-size: 20px; padding: 10px;" oninput="calcVat()">
+        
+        <div class="btn-group">
+            <button id="addBtn" class="active" onclick="setMode('add')">Начислить 20%</button>
+            <button id="subBtn" onclick="setMode('sub')">Выделить 20%</button>
         </div>
-        <br>
-        <a href="index.html" style="color: #666; text-decoration: none;">← На главную</a>
+
+        <div class="result-area">
+            <p>НДС (20%): <span id="vat-sum" class="big-sum">0</span> ₽</p>
+            <p id="total-label">Итого с НДС:</p>
+            <span id="total-sum" class="big-sum" style="color: #2563eb;">0</span> ₽
+        </div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:#aaa; text-decoration:none;">Назад</a>
     </div>
 
     <script>
+        let mode = 'add';
+        function setMode(m) {
+            mode = m;
+            document.getElementById('addBtn').classList.toggle('active', m === 'add');
+            document.getElementById('subBtn').classList.toggle('active', m === 'sub');
+            document.getElementById('total-label').innerText = m === 'add' ? 'Итого с НДС:' : 'Сумма без НДС:';
+            calcVat();
+        }
         function calcVat() {
             let val = parseFloat(document.getElementById('amount').value) || 0;
-            let type = document.getElementById('type').value;
-            let vat, total;
-            if (type === 'plus') {
-                vat = val * 0.20;
-                total = val + vat;
+            let vat, res;
+            if (mode === 'add') {
+                vat = val * 0.2;
+                res = val + vat;
             } else {
-                vat = val - (val / 1.20);
-                total = val;
-                val = val - vat;
+                vat = val - (val / 1.2);
+                res = val - vat;
             }
-            document.getElementById('vat-price').innerText = vat.toFixed(2);
-            document.getElementById('total-price').innerText = total.toFixed(2);
+            document.getElementById('vat-sum').innerText = vat.toLocaleString(undefined, {minimumFractionDigits:2});
+            document.getElementById('total-sum').innerText = res.toLocaleString(undefined, {minimumFractionDigits:2});
         }
     </script>
 </body>
