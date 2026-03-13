@@ -2,66 +2,122 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Конвертер валют: Тенге, Рубль, Доллар</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер валют СНГ — Тенге, Рубль, Доллар</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .converter-card {
+            max-width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .currency-item {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        .currency-item label {
+            flex: 1;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .currency-item input {
+            width: 150px;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            outline: none;
+            color: #3a7bd5;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <h2>💱 Конвертер валют СНГ</h2>
-        
-        <div class="input-group">
-            <label>Сумма</label>
-            <input type="number" id="fromAmount" value="1000" oninput="convert()">
-            <select id="fromCurrency" onchange="convert()">
-                <option value="KZT">🇰🇿 Тенге (₸)</option>
-                <option value="RUB">🇷🇺 Рубль (₽)</option>
-                <option value="USD" selected>🇺🇸 Доллар ($)</option>
-            </select>
+
+<header>
+    <h1>💱 Конвертер валют</h1>
+    <p>Мгновенный перевод между KZT, RUB и USD</p>
+</header>
+
+<div class="container">
+    <div class="converter-card">
+        <div class="currency-item">
+            <label>🇰🇿 Тенге (KZT)</label>
+            <input type="number" id="kzt" value="1000" oninput="convert('kzt')">
         </div>
 
-        <div style="text-align: center; margin: 15px 0; font-size: 24px;">⬇️</div>
-
-        <div class="res-box">
-            <div id="results-list" style="text-align: left; line-height: 2;">
-                </div>
+        <div class="currency-item">
+            <label>🇷🇺 Рубль (RUB)</label>
+            <input type="number" id="rub" oninput="convert('rub')">
         </div>
 
-        <p style="font-size: 12px; color: var(--text-muted); margin-top: 15px;">
-            Курс для расчета: <br>
-            1 $ ≈ 450 ₸ | 1 $ ≈ 92 ₽ | 1 ₽ ≈ 4.9 ₸
-        </p>
+        <div class="currency-item">
+            <label>🇺🇸 Доллар (USD)</label>
+            <input type="number" id="usd" oninput="convert('usd')">
+        </div>
 
-        <a href="index.html" class="back-link">← На главную</a>
+        <div class="info-text">
+            <p>Введите сумму в любое поле для пересчета.<br>
+            Примерный курс: 1$ ≈ 450₸ | 1$ ≈ 92₽ | 1₽ ≈ 4.9₸</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="color: #3a7bd5; text-decoration: none; font-size: 14px;">← Вернуться на главную</a>
+        </div>
     </div>
+</div>
 
-    <script>
-        // Фиксированные курсы (можно обновлять раз в неделю)
-        const rates = {
-            "KZT": 1,
-            "RUB": 4.9,   // 1 рубль = 4.9 тенге
-            "USD": 450    // 1 доллар = 450 тенге
-        };
+<script>
+    // Актуальные курсы (база — Тенге)
+    const rates = {
+        usd: 450, // 1 доллар = 450 тенге
+        rub: 4.9  // 1 рубль = 4.9 тенге
+    };
 
-        function convert() {
-            const amount = parseFloat(document.getElementById('fromAmount').value) || 0;
-            const from = document.getElementById('fromCurrency').value;
-            
-            // Переводим всё в тенге (базовая валюта)
-            const amountInKZT = amount * rates[from];
+    function convert(source) {
+        const kztInput = document.getElementById('kzt');
+        const rubInput = document.getElementById('rub');
+        const usdInput = document.getElementById('usd');
 
-            const resKZT = (amountInKZT / rates["KZT"]).toFixed(2);
-            const resRUB = (amountInKZT / rates["RUB"]).toFixed(2);
-            const resUSD = (amountInKZT / rates["USD"]).toFixed(2);
+        let val = parseFloat(document.getElementById(source).value);
 
-            document.getElementById('results-list').innerHTML = `
-                <div>🇰🇿 <b>${resKZT}</b> Тенге</div>
-                <div>🇷🇺 <b>${resRUB}</b> Рублей</div>
-                <div>🇺🇸 <b>${resUSD}</b> Долларов</div>
-            `;
+        if (isNaN(val)) {
+            if (source !== 'kzt') kztInput.value = '';
+            if (source !== 'rub') rubInput.value = '';
+            if (source !== 'usd') usdInput.value = '';
+            return;
         }
-        
-        // Запуск при загрузке
-        convert();
-    </script>
+
+        let amountInKzt;
+
+        // Приводим всё к тенге
+        if (source === 'kzt') amountInKzt = val;
+        if (source === 'rub') amountInKzt = val * rates.rub;
+        if (source === 'usd') amountInKzt = val * rates.usd;
+
+        // Рассчитываем остальные поля
+        if (source !== 'kzt') kztInput.value = (amountInKzt).toFixed(2);
+        if (source !== 'rub') rubInput.value = (amountInKzt / rates.rub).toFixed(2);
+        if (source !== 'usd') usdInput.value = (amountInKzt / rates.usd).toFixed(2);
+    }
+
+    // Запускаем расчет при загрузке страницы
+    convert('kzt');
+</script>
+
 </body>
 </html>
