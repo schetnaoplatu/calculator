@@ -2,256 +2,130 @@
 <html lang="ru">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бесплатные онлайн инструменты — калькуляторы и генераторы СНГ</title>
+    <meta name="description" content="Бесплатные онлайн инструменты: кредитный калькулятор, калькулятор НДС 12% и 20%, генератор паролей, резюме и PDF для Казахстана, России и Беларуси.">
+    <meta name="keywords" content="онлайн калькулятор, тенге, ндс 12%, ндс 20%, генератор паролей, создать резюме, инструменты снг">
+    <link rel="canonical" href="https://schetnaoplatu.github.io/calculator/">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f6fa; color: #333; scroll-behavior: smooth; }
+        header { background: linear-gradient(135deg, #3a7bd5, #00d2ff); color: white; text-align: center; padding: 60px 20px; }
+        header h1 { font-size: 40px; margin-bottom: 10px; }
+        header p { font-size: 18px; opacity: 0.9; }
+        
+        .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+        
+        /* Стили для выбора страны */
+        .country-nav { text-align: center; margin-bottom: 40px; }
+        .nav-btn { text-decoration: none; padding: 12px 20px; background: white; border-radius: 50px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); color: #333; font-weight: bold; margin: 5px; display: inline-block; transition: 0.3s; border: 1px solid #eee; }
+        .nav-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-color: #3a7bd5; }
 
-<title>Бесплатные онлайн инструменты — калькуляторы и генераторы</title>
+        .country-title { border-left: 5px solid #3a7bd5; padding-left: 15px; margin: 40px 0 20px; font-size: 26px; color: #1e293b; }
+        .kz-border { border-color: #00afca; }
+        .ru-border { border-color: #d52b1e; }
+        .by-border { border-color: #35a661; }
 
-<meta name="description" content="Бесплатные онлайн инструменты: кредитный калькулятор, калькулятор НДС, генератор паролей, PDF генератор, QR код генератор и другие полезные сервисы.">
+        .tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .tool { background: white; padding: 20px; border-radius: 12px; text-align: center; text-decoration: none; color: #333; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: 0.2s; border: 1px solid transparent; }
+        .tool:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.12); border-color: #3a7bd5; color: #3a7bd5; }
 
-<meta name="keywords" content="онлайн калькулятор, генератор паролей, pdf генератор, калькулятор процентов, калькулятор кредита, инструменты онлайн">
+        .seo-grid { margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+        footer { margin-top: 60px; background: #eee; padding: 40px; text-align: center; }
+        footer a { color: #3a7bd5; text-decoration: none; }
 
-<link rel="canonical" href="https://schetnaoplatu.github.io/calculator/">
-
-<style>
-
-body{
-font-family:Arial, sans-serif;
-margin:0;
-background:#f5f6fa;
-color:#333;
-}
-
-header{
-background:linear-gradient(135deg,#3a7bd5,#00d2ff);
-color:white;
-text-align:center;
-padding:60px 20px;
-}
-
-header h1{
-font-size:40px;
-margin-bottom:10px;
-}
-
-header p{
-font-size:18px;
-opacity:0.9;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
-}
-
-.tools{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-
-.tool{
-background:white;
-padding:20px;
-border-radius:12px;
-text-align:center;
-text-decoration:none;
-color:#333;
-font-weight:600;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-transition:0.2s;
-}
-
-.tool:hover{
-transform:translateY(-5px);
-box-shadow:0 6px 15px rgba(0,0,0,0.12);
-}
-
-.seo{
-margin-top:60px;
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:30px;
-}
-
-.seo h2{
-font-size:22px;
-}
-
-footer{
-margin-top:60px;
-background:#eee;
-padding:30px;
-text-align:center;
-}
-
-footer a{
-color:#3a7bd5;
-text-decoration:none;
-}
-
-@media(max-width:800px){
-
-header h1{
-font-size:28px;
-}
-
-.seo{
-grid-template-columns:1fr;
-}
-
-}
-
-</style>
-
+        @media(max-width: 800px) {
+            header h1 { font-size: 28px; }
+            .seo-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-
-<h1>Бесплатные онлайн инструменты</h1>
-
-<p>Калькуляторы, генераторы и полезные сервисы</p>
-
+    <h1>Бесплатные онлайн инструменты</h1>
+    <p>Калькуляторы, генераторы и полезные сервисы для СНГ</p>
 </header>
 
-
 <div class="container">
+    
+    <div class="country-nav">
+        <p style="color: #64748b; margin-bottom: 15px; font-weight: bold;">🌍 Быстрый переход по странам:</p>
+        <a href="#kazakhstan" class="nav-btn">🇰🇿 Казахстан</a>
+        <a href="#russia" class="nav-btn">🇷🇺 Россия</a>
+        <a href="#belarus" class="nav-btn">🇧🇾 Беларусь</a>
+        <a href="#universal" class="nav-btn">🛠️ Общие</a>
+    </div>
 
-<div class="tools">
+    <h2 id="kazakhstan" class="country-title kz-border">🇰🇿 Инструменты для Казахстана</h2>
+    <div class="tools">
+        <a href="nds-sng.html" class="tool">🇰🇿 Калькулятор НДС (12%)</a>
+        <a href="currency-converter.html" class="tool">₸ Конвертер тенге (KZT)</a>
+        <a href="loan-calculator.html" class="tool">🏦 Расчет займов в тенге</a>
+        <a href="salary-calculator.html" class="tool">💵 Калькулятор зарплаты</a>
+    </div>
 
-<a href="credit-calculator.html" class="tool">💰 Кредитный калькулятор</a>
+    <h2 id="russia" class="country-title ru-border">🇷🇺 Инструменты для России</h2>
+    <div class="tools">
+        <a href="nds-sng.html" class="tool">🇷🇺 Калькулятор НДС (20%)</a>
+        <a href="vat-calculator.html" class="tool">🧾 Налоги РФ (13/15%)</a>
+        <a href="credit-calculator.html" class="tool">💰 Кредитный калькулятор</a>
+        <a href="mortgage-calculator.html" class="tool">🏠 Ипотечный калькулятор</a>
+    </div>
 
-<a href="loan-calculator.html" class="tool">🏦 Калькулятор займа</a>
+    <h2 id="belarus" class="country-title by-border">🇧🇾 Инструменты для Беларуси</h2>
+    <div class="tools">
+        <a href="nds-sng.html" class="tool">🇧🇾 Калькулятор НДС (20%)</a>
+        <a href="currency-converter.html" class="tool">Br Конвертер бел. рубля</a>
+    </div>
 
-<a href="mortgage-calculator.html" class="tool">🏠 Ипотечный калькулятор</a>
+    <h2 id="universal" class="country-title">🛠️ Универсальные сервисы</h2>
+    <div class="tools">
+        <a href="resume-builder.html" class="tool">📝 Создать резюме</a>
+        <a href="pdf-generator.html" class="tool">📄 PDF генератор</a>
+        <a href="advanced-password.html" class="tool">🛡️ Продвинутый пароль</a>
+        <a href="qr-generator.html" class="tool">🔗 QR код генератор</a>
+        <a href="bmi-calculator.html" class="tool">⚖️ BMI калькулятор</a>
+        <a href="percent-calculator.html" class="tool">📊 Процентный калькулятор</a>
+        <a href="image-to-pdf.html" class="tool">🖼️ Картинка в PDF</a>
+        <a href="age-calculator.html" class="tool">🎂 Калькулятор возраста</a>
+        <a href="unit-converter.html" class="tool">📏 Конвертер единиц</a>
+        <a href="word-counter.html" class="tool">🔢 Счетчик слов</a>
+    </div>
 
-<a href="percent-calculator.html" class="tool">📊 Калькулятор процентов</a>
-
-<a href="salary-calculator.html" class="tool">💵 Калькулятор зарплаты</a>
-
-<a href="vat-calculator.html" class="tool">Калькулятор НДС (20%)</a>
-
-<a href="bmi-calculator.html" class="tool">⚖️ BMI калькулятор</a>
-
-<a href="password-generator.html" class="tool">🔐 Генератор паролей</a>
-
-<a href="invoice-generator.html" class="tool">🧾 Генератор счетов</a>
-
-<a href="pdf-generator.html" class="tool">📄 PDF генератор</a>
-
-<a href="qr-generator.html" class="tool">🔗 QR код генератор</a>
-
-<a href="resume-builder.html" class="tool">📝 Создать резюме</a>
-
-<a href="resume-templates.html" class="tool">📑 Шаблоны резюме</a>
-
-<a href="resume-examples.html" class="tool">💡 Примеры резюме</a>
-
-<a href="word-counter.html" class="tool">🔢 Счетчик слов</a>
-
-<a href="text-case.html" class="tool">🔤 Изменение регистра текста</a>
-
-<a href="random-number.html" class="tool">🎲 Генератор чисел</a>
-
-<a href="age-calculator.html" class="tool">🎂 Калькулятор возраста</a>
-
-<a href="unit-converter.html" class="tool">📏 Конвертер единиц</a>
-
-<a href="discount-calculator.html" class="tool">🏷️ Калькулятор скидки</a>
-
-<a href="currency-converter.html" class="tool">💱 Конвертер валют</a>
-
-<a href="time-calculator.html" class="tool">🕒 Калькулятор времени</a>
-
-<a href="loan-payment-calculator.html" class="tool">📈 Калькулятор платежей по кредиту</a>
-
-<a href="advanced-password.html" class="tool">🛡️ Продвинутый генератор паролей</a>
-
-<a href="base64.html" class="tool">💾 Base64 Encoder</a>
-
-<a href="image-to-pdf.html" class="tool">🖼️ Картинка в PDF</a>
-
-<a href="md5-generator.html" class="tool">🔑 MD5 Generator</a>
-
+    <div class="seo-grid">
+        <div>
+            <h2>Бесплатные инструменты</h2>
+            <p>Наш сайт предоставляет бесплатные онлайн инструменты для расчетов и создания документов. Здесь вы можете использовать кредитные калькуляторы и генераторы PDF.</p>
+        </div>
+        <div>
+            <h2>Работа и учеба</h2>
+            <p>Все сервисы работают прямо в браузере. Онлайн калькуляторы помогают быстро рассчитать проценты, ипотеку и налоги без регистрации.</p>
+        </div>
+        <div>
+            <h2>Сервисы для СНГ</h2>
+            <p>Сайт создан для пользователей из России, Казахстана и Беларуси. Инструменты адаптированы под местные налоги и валюты.</p>
+        </div>
+    </div>
 </div>
 
-
-<div class="seo">
-
-<div>
-
-<h2>Бесплатные онлайн инструменты</h2>
-
-<p>
-Наш сайт предоставляет бесплатные онлайн инструменты для расчетов, создания документов и работы с текстом. Здесь вы можете использовать кредитный калькулятор, калькулятор процентов, генератор паролей, PDF генератор и другие полезные сервисы.
-</p>
-
-</div>
-
-<div>
-
-<h2>Инструменты для работы и учебы</h2>
-
-<p>
-Все сервисы работают прямо в браузере и не требуют установки программ. Онлайн калькуляторы помогают быстро рассчитать проценты, кредиты, ипотеку и налоги. Генераторы позволяют создавать пароли, документы PDF и QR коды.
-</p>
-
-</div>
-
-<div>
-
-<h2>Онлайн сервисы для пользователей СНГ</h2>
-
-<p>
-Сайт создан для пользователей из России, Казахстана, Украины и других стран СНГ. Вы можете бесплатно использовать инструменты для бизнеса, учебы и повседневных задач.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<footer>
-
-<p>© 2026 Онлайн инструменты</p>
-
-<a href="privacy.html">Политика конфиденциальности</a>
-
-</footer>
 <section class="seo-section" style="max-width: 1200px; margin: 60px auto 20px; padding: 40px 20px; border-top: 1px solid #e2e8f0;">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
         <h2 style="color: #1e293b; font-size: 28px; margin-bottom: 20px;">Полезные инструменты на каждый день</h2>
         <p style="color: #64748b; font-size: 18px; line-height: 1.6;">
             Наш портал создан для тех, кто ценит свое время. Мы собрали в одном месте самые востребованные 
-            <strong>бесплатные онлайн-инструменты</strong>: от финансовых калькуляторов и конвертеров 
-            до профессиональных генераторов резюме и PDF-документов.Инструменты для Казахстана (НДС 12%, Тенге),Инструменты для России (НДС 20%, Рубль),Инструменты для Беларуси (НДС 20%, Бел. рубль)
+            <strong>бесплатные онлайн-инструменты</strong>: от финансовых калькуляторов до профессиональных генераторов резюме. 
+            Специальные разделы: Инструменты для Казахстана (НДС 12%, Тенге), России и Беларуси.
         </p>
     </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #f1f5f9;">
-            <h3 style="color: #4f46e5; margin-top: 0;">💰 Финансы и бизнес</h3>
-            <p style="color: #475569; font-size: 14px;">Быстро рассчитайте ипотеку, кредит или налог НДС. Наши калькуляторы помогут составить счет на оплату или рассчитать скидку на товар за считанные секунды.</p>
-        </div>
-        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #f1f5f9;">
-            <h3 style="color: #4f46e5; margin-top: 0;">📄 Работа с документами</h3>
-            <p style="color: #475569; font-size: 14px;">Используйте современный конструктор резюме, чтобы получить работу мечты. Конвертируйте текст и изображения в PDF-файлы без потери качества прямо в браузере.</p>
-        </div>
-        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #f1f5f9;">
-            <h3 style="color: #4f46e5; margin-top: 0;">🔐 Безопасность и данные</h3>
-            <p style="color: #475569; font-size: 14px;">Создавайте надежные пароли, генерируйте QR-коды и работайте с кодировками текста. Мы не храним ваши данные — все вычисления происходят только на вашем устройстве.</p>
-        </div>
-    </div>
-
-    <p style="text-align: center; color: #94a3b8; font-size: 14px; margin-top: 40px;">
-        Все инструменты работают без регистрации и скрытых платежей. Добавьте сайт в закладки, чтобы нужный калькулятор всегда был под рукой!
-    </p>
 </section>
-</body>
 
+<footer>
+    <p>© 2026 Онлайн инструменты для СНГ</p>
+    <a href="privacy.html">Политика конфиденциальности</a>
+</footer>
+
+</body>
 </html>
