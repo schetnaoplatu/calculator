@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конвертер валют СНГ — Тенге, Рубль, Доллар</title>
+    <title>Конвертер валют СНГ — Тенге, Рубль, Доллар онлайн</title>
+    <meta name="description" content="Мгновенный конвертер валют для Казахстана, России и Беларуси. Актуальные курсы тенге (KZT), рубля (RUB) и доллара (USD) на 2026 год.">
     <link rel="stylesheet" href="style.css">
     <style>
         .converter-card {
@@ -44,6 +45,14 @@
             text-align: center;
             line-height: 1.5;
         }
+        .seo-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #475569;
+            line-height: 1.6;
+            font-family: sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -71,21 +80,44 @@
         </div>
 
         <div class="info-text">
-            <p>Введите сумму в любое поле для пересчета.<br>
-            Примерный курс: 1$ ≈ 450₸ | 1$ ≈ 92₽ | 1₽ ≈ 4.9₸</p>
+            <p>Введите сумму в любое поле для мгновенного пересчета.</p>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
             <a href="index.html" style="color: #3a7bd5; text-decoration: none; font-size: 14px;">← Вернуться на главную</a>
         </div>
     </div>
+
+    <section class="seo-section">
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 30px;">
+        <h2 style="color: #1e293b;">Зачем нужен онлайн-конвертер валют?</h2>
+        <p>
+            В условиях активной торговли и путешествий между странами СНГ, такими как <strong>Казахстан, Россия и Беларусь</strong>, крайне важно иметь под рукой инструмент для быстрого расчета стоимости товаров и услуг. Наш сервис позволяет в один клик перевести <strong>тенге в рубли</strong> или узнать актуальный эквивалент суммы в <strong>долларах США</strong>.
+        </p>
+
+        <h3 style="color: #1e293b;">Как пользоваться инструментом:</h3>
+        <ul>
+            <li>Чтобы узнать курс <strong>доллара к тенге</strong>, просто введите «1» в поле USD.</li>
+            <li>Для расчета стоимости покупок из РФ введите сумму в <strong>рублях</strong>, и вы сразу увидите результат в KZT.</li>
+            <li>Инструмент работает адаптивно: вводите цифры в любое поле, остальные обновятся автоматически.</li>
+        </ul>
+
+        <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; margin: 20px 0;">
+            <p style="margin: 0; font-size: 14px;">
+                <strong>Справочно на 2026 год:</strong> Курсы валют постоянно меняются. Для точных банковских операций рекомендуем сверяться с курсом Национального Банка РК (НБК) или ЦБ РФ. Наш калькулятор использует средние рыночные значения: 1$ ≈ 450₸, 1₽ ≈ 4.9₸.
+            </p>
+        </div>
+
+        <p style="font-size: 14px; font-style: italic;">
+            Пользуйтесь нашим бесплатным конвертером для планирования бюджета, расчета командировочных или проверки цен в зарубежных интернет-магазинах.
+        </p>
+    </section>
 </div>
 
 <script>
-    // Актуальные курсы (база — Тенге)
     const rates = {
-        usd: 450, // 1 доллар = 450 тенге
-        rub: 4.9  // 1 рубль = 4.9 тенге
+        usd: 450, 
+        rub: 4.9  
     };
 
     function convert(source) {
@@ -103,37 +135,16 @@
         }
 
         let amountInKzt;
-
-        // Приводим всё к тенге
         if (source === 'kzt') amountInKzt = val;
         if (source === 'rub') amountInKzt = val * rates.rub;
         if (source === 'usd') amountInKzt = val * rates.usd;
 
-        // Рассчитываем остальные поля
         if (source !== 'kzt') kztInput.value = (amountInKzt).toFixed(2);
         if (source !== 'rub') rubInput.value = (amountInKzt / rates.rub).toFixed(2);
         if (source !== 'usd') usdInput.value = (amountInKzt / rates.usd).toFixed(2);
     }
-
-    // Запускаем расчет при загрузке страницы
     convert('kzt');
 </script>
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107691459', 'ym');
-
-    ym(107691459, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107691459" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-
 
 </body>
 </html>
