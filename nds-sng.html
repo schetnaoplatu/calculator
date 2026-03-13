@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Универсальный калькулятор НДС СНГ (РК, РФ, РБ)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .country-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .flag-btn {
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            transition: 0.3s;
+            font-size: 20px;
+        }
+        .flag-btn.active {
+            border-color: var(--primary);
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🏢 Калькулятор НДС СНГ</h2>
+    
+    <div class="country-selector">
+        <div class="flag-btn active" onclick="setCountry('KZ', 12, '₸')" id="btn-KZ">🇰🇿 РК</div>
+        <div class="flag-btn" onclick="setCountry('RU', 20, '₽')" id="btn-RU">🇷🇺 РФ</div>
+        <div class="flag-btn" onclick="setCountry('BY', 20, 'Br')" id="btn-BY">🇧🇾 РБ</div>
+    </div>
+
+    <div class="input-group">
+        <label>Сумма (<span id="currency-label">₸</span>)</label>
+        <input type="number" id="amount" placeholder="Введите сумму" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>Ставка налога (%)</label>
+        <input type="number" id="vat-rate" value="12" oninput="calculate()">
+    </div>
+
+    <div class="res-box">
+        <div style="font-size: 14px; color: var(--text-muted);">Сумма НДС:</div>
+        <div id="vat-amount" style="font-size: 24px; color: var(--primary);">0 ₸</div>
+        
+        <div style="font-size: 14px; color: var(--text-muted); margin-top: 15px;">Итого с НДС:</div>
+        <div id="total-amount" style="font-size: 24px;">0 ₸</div>
+    </div>
+
+    <p style="font-size: 12px; color: var(--text-muted);">
+        *Для Казахстана 12%, для России и Беларуси 20%.
+    </p>
+    
+    <a href="index.html" class="back-link">← На главную</a>
+</div>
+
+<script>
+    let currentCurrency = '₸';
+
+    function setCountry(code, rate, symbol) {
+        // Убираем активный класс у всех кнопок
+        document.querySelectorAll('.flag-btn').forEach(btn => btn.classList.remove('active'));
+        // Добавляем активный класс нажатой
+        document.getElementById('btn-' + code).classList.add('active');
+        
+        // Меняем значения
+        document.getElementById('vat-rate').value = rate;
+        document.getElementById('currency-label').innerText = symbol;
+        currentCurrency = symbol;
+        
+        calculate();
+    }
+
+    function calculate() {
+        const amount = parseFloat(document.getElementById('amount').value) || 0;
+        const rate = parseFloat(document.getElementById('vat-rate').value) || 0;
+        
+        const vat = amount * (rate / 100);
+        const total = amount + vat;
+
+        document.getElementById('vat-amount').innerText = vat.toLocaleString() + ' ' + currentCurrency;
+        document.getElementById('total-amount').innerText = total.toLocaleString() + ' ' + currentCurrency;
+    }
+</script>
+
+</body>
+</html>
