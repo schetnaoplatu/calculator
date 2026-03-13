@@ -31,6 +31,11 @@ header p { font-size: 18px; opacity: 0.9; }
     gap: 15px;
     width: 100%;
     margin-bottom: 30px;
+    .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    align-items: stretch; /* Это выровняет их по высоте */
+    gap: 20px;
 }
 
 /* Стиль самих кнопок-карточек */
