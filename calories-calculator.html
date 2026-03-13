@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор калорий онлайн — Расчет нормы КБЖУ</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>🍎 Калькулятор калорий</h2>
+    <div class="input-group">
+        <label>Ваш пол</label>
+        <select id="gender">
+            <option value="male">Мужчина</option>
+            <option value="female">Женщина</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label>Вес (кг)</label>
+        <input type="number" id="weight" placeholder="Например: 70">
+    </div>
+    <div class="input-group">
+        <label>Рост (см)</label>
+        <input type="number" id="height" placeholder="Например: 175">
+    </div>
+    <div class="input-group">
+        <label>Возраст</label>
+        <input type="number" id="age" placeholder="Например: 25">
+    </div>
+    <div class="res-box">
+        <div style="font-size: 14px; color: #64748b;">Ваша суточная норма (поддержание):</div>
+        <div id="calories-result" style="font-size: 24px; color: #22c55e; font-weight: bold;">0 ккал</div>
+    </div>
+    <button onclick="calcCalories()" style="width:100%; padding:12px; background:#3a7bd5; color:white; border:none; border-radius:8px; cursor:pointer;">Узнать норму</button>
+    <a href="index.html" class="back-link" style="margin-top: 20px;">← На главную</a>
+</div>
+
+<script>
+function calcCalories() {
+    const w = parseFloat(document.getElementById('weight').value) || 0;
+    const h = parseFloat(document.getElementById('height').value) || 0;
+    const a = parseFloat(document.getElementById('age').value) || 0;
+    const gender = document.getElementById('gender').value;
+    
+    let bmr;
+    if (gender === 'male') {
+        bmr = 10 * w + 6.25 * h - 5 * a + 5;
+    } else {
+        bmr = 10 * w + 6.25 * h - 5 * a - 161;
+    }
+    
+    // С учетом минимальной активности (x1.2)
+    const result = Math.round(bmr * 1.2);
+    document.getElementById('calories-result').innerText = result.toLocaleString() + ' ккал';
+}
+</script>
+</body>
+</html>
