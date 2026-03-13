@@ -2,49 +2,65 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Конвертер валют онлайн</title>
+    <title>Конвертер валют: Тенге, Рубль, Доллар</title>
     <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="conv-card">
-        <h3>Конвертер валют</h3>
-        <div class="flex-row">
-            <input type="number" id="fromVal" value="1" oninput="convert()">
-            <select id="fromCurr" onchange="convert()">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="RUB" selected>RUB (₽)</option>
+    <div class="card">
+        <h2>💱 Конвертер валют СНГ</h2>
+        
+        <div class="input-group">
+            <label>Сумма</label>
+            <input type="number" id="fromAmount" value="1000" oninput="convert()">
+            <select id="fromCurrency" onchange="convert()">
+                <option value="KZT">🇰🇿 Тенге (₸)</option>
+                <option value="RUB">🇷🇺 Рубль (₽)</option>
+                <option value="USD" selected>🇺🇸 Доллар ($)</option>
             </select>
         </div>
-        <button class="swap-btn" onclick="swap()">⇅</button>
-        <div class="flex-row">
-            <input type="number" id="toVal" readonly>
-            <select id="toCurr" onchange="convert()">
-                <option value="USD" selected>USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="RUB">RUB (₽)</option>
-            </select>
+
+        <div style="text-align: center; margin: 15px 0; font-size: 24px;">⬇️</div>
+
+        <div class="res-box">
+            <div id="results-list" style="text-align: left; line-height: 2;">
+                </div>
         </div>
-        <p style="font-size:12px; color:#94a3b8">Курс: 1 USD ≈ 92 RUB | 1 EUR ≈ 100 RUB</p>
-        <a href="index.html" style="display:block; margin-top:15px; color:#ccc; text-decoration:none">← Назад</a>
+
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 15px;">
+            Курс для расчета: <br>
+            1 $ ≈ 450 ₸ | 1 $ ≈ 92 ₽ | 1 ₽ ≈ 4.9 ₸
+        </p>
+
+        <a href="index.html" class="back-link">← На главную</a>
     </div>
+
     <script>
-        const rates = { "USD": 1, "EUR": 0.92, "RUB": 92 }; // Базовая логика относительно USD
+        // Фиксированные курсы (можно обновлять раз в неделю)
+        const rates = {
+            "KZT": 1,
+            "RUB": 4.9,   // 1 рубль = 4.9 тенге
+            "USD": 450    // 1 доллар = 450 тенге
+        };
+
         function convert() {
-            let from = document.getElementById('fromCurr').value;
-            let to = document.getElementById('toCurr').value;
-            let val = parseFloat(document.getElementById('fromVal').value) || 0;
-            // Пересчет через кросс-курс
-            let result = val * (rates[to] / rates[from]);
-            document.getElementById('toVal').value = result.toFixed(2);
+            const amount = parseFloat(document.getElementById('fromAmount').value) || 0;
+            const from = document.getElementById('fromCurrency').value;
+            
+            // Переводим всё в тенге (базовая валюта)
+            const amountInKZT = amount * rates[from];
+
+            const resKZT = (amountInKZT / rates["KZT"]).toFixed(2);
+            const resRUB = (amountInKZT / rates["RUB"]).toFixed(2);
+            const resUSD = (amountInKZT / rates["USD"]).toFixed(2);
+
+            document.getElementById('results-list').innerHTML = `
+                <div>🇰🇿 <b>${resKZT}</b> Тенге</div>
+                <div>🇷🇺 <b>${resRUB}</b> Рублей</div>
+                <div>🇺🇸 <b>${resUSD}</b> Долларов</div>
+            `;
         }
-        function swap() {
-            let f = document.getElementById('fromCurr').value;
-            document.getElementById('fromCurr').value = document.getElementById('toCurr').value;
-            document.getElementById('toCurr').value = f;
-            convert();
-        }
+        
+        // Запуск при загрузке
         convert();
     </script>
 </body>
