@@ -22,7 +22,7 @@
             font-size: 20px;
         }
         .flag-btn.active {
-            border-color: var(--primary);
+            border-color: #3a7bd5;
             background: #f1f5f9;
         }
     </style>
@@ -49,30 +49,49 @@
     </div>
 
     <div class="res-box">
-        <div style="font-size: 14px; color: var(--text-muted);">Сумма НДС:</div>
-        <div id="vat-amount" style="font-size: 24px; color: var(--primary);">0 ₸</div>
+        <div style="font-size: 14px; color: #64748b;">Сумма НДС:</div>
+        <div id="vat-amount" style="font-size: 24px; color: #3a7bd5; font-weight: bold;">0 ₸</div>
         
-        <div style="font-size: 14px; color: var(--text-muted); margin-top: 15px;">Итого с НДС:</div>
-        <div id="total-amount" style="font-size: 24px;">0 ₸</div>
+        <div style="font-size: 14px; color: #64748b; margin-top: 15px;">Итого с НДС:</div>
+        <div id="total-amount" style="font-size: 24px; font-weight: bold;">0 ₸</div>
     </div>
 
-    <p style="font-size: 12px; color: var(--text-muted);">
+    <p style="font-size: 12px; color: #64748b; margin-top: 15px;">
         *Для Казахстана 12%, для России и Беларуси 20%.
     </p>
     
     <a href="index.html" class="back-link">← На главную</a>
 </div>
 
+<section class="seo-content" style="max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #475569; font-family: sans-serif;">
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 30px;">
+    
+    <h2 style="color: #1e293b;">Как рассчитать НДС онлайн: Инструкция для СНГ</h2>
+    <p>
+        Наш универсальный калькулятор разработан специально для предпринимателей и фрилансеров из <strong>Казахстана (РК), России (РФ) и Беларуси (РБ)</strong>. Он учитывает актуальные ставки 2026 года.
+    </p>
+
+    <h3 style="color: #1e293b; margin-top: 25px;">Ставки НДС в 2026 году:</h3>
+    <ul style="list-style-type: none; padding: 0;">
+        <li style="margin-bottom: 10px;">🇰🇿 <strong>Казахстан:</strong> Ставка составляет <strong>12%</strong>. Это важный показатель для ТОО и ИП на упрощенке при превышении порога.</li>
+        <li style="margin-bottom: 10px;">🇷🇺 <strong>Россия:</strong> Применяется стандартная ставка <strong>20%</strong>.</li>
+        <li style="margin-bottom: 10px;">🇧🇾 <strong>Беларусь:</strong> Базовая ставка также составляет <strong>20%</strong>.</li>
+    </ul>
+
+    <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; margin: 25px 0;">
+        <h4 style="margin-top: 0; color: #3a7bd5;">💡 Часто задаваемые вопросы</h4>
+        <p style="margin-bottom: 10px; font-weight: bold;">Как выделить НДС из суммы?</p>
+        <p style="font-size: 14px;">Разделите общую сумму на 1.12 (для Казахстана) или на 1.20 (для РФ), затем вычтите результат из исходного числа.</p>
+    </div>
+</section>
+
 <script>
     let currentCurrency = '₸';
 
     function setCountry(code, rate, symbol) {
-        // Убираем активный класс у всех кнопок
         document.querySelectorAll('.flag-btn').forEach(btn => btn.classList.remove('active'));
-        // Добавляем активный класс нажатой
         document.getElementById('btn-' + code).classList.add('active');
         
-        // Меняем значения
         document.getElementById('vat-rate').value = rate;
         document.getElementById('currency-label').innerText = symbol;
         currentCurrency = symbol;
